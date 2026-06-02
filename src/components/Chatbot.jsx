@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, MessageCircle } from 'lucide-react';
+import { X, Send, Bot } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+
+const TypingIndicator = () => (
+  <div className="flex items-center gap-1.5 px-2 py-3">
+    <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0 }} className="w-2 h-2 rounded-full bg-primary/60" />
+    <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-2 h-2 rounded-full bg-primary/60" />
+    <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-2 h-2 rounded-full bg-primary/60" />
+  </div>
+);
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
   // Predefined FAQ questions and answers
@@ -49,16 +58,18 @@ const Chatbot = () => {
   // Auto-scroll to bottom of messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isTyping]);
 
   const handleOptionClick = (option) => {
     // Add user's selected question
     setMessages((prev) => [...prev, { type: 'user', content: option.text }]);
+    setIsTyping(true);
     
-    // Simulate typing delay
+    // Simulate robotic thinking delay
     setTimeout(() => {
+      setIsTyping(false);
       setMessages((prev) => [...prev, { type: 'bot', content: option.answer }]);
-    }, 500);
+    }, 1200);
   };
 
   const handleSend = (e) => {
@@ -68,9 +79,11 @@ const Chatbot = () => {
     const userText = inputValue.trim();
     setMessages((prev) => [...prev, { type: 'user', content: userText }]);
     setInputValue('');
+    setIsTyping(true);
 
-    // WhatsApp Fallback for custom text
+    // WhatsApp Fallback for custom text with robotic thinking delay
     setTimeout(() => {
+      setIsTyping(false);
       setMessages((prev) => [
         ...prev, 
         { 
@@ -80,7 +93,7 @@ const Chatbot = () => {
           userQuery: userText
         }
       ]);
-    }, 600);
+    }, 1500);
   };
 
   const openWhatsApp = (customText = '') => {
@@ -91,10 +104,14 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Floating Toggle Button */}
+      {/* Floating Toggle Button with Robotic Hover Animation */}
       <motion.button
         initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+        animate={{ scale: 1, y: [0, -10, 0] }}
+        transition={{ 
+          scale: { duration: 0.3 }, 
+          y: { repeat: Infinity, duration: 3, ease: "easeInOut" } 
+        }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
@@ -123,13 +140,13 @@ const Chatbot = () => {
             {/* Header */}
             <div className="bg-primary px-6 py-4 flex items-center justify-between shadow-md">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white p-1 flex items-center justify-center">
-                  <img src="/logo.png" alt="Gurujii" className="w-full h-full object-contain" />
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-inner">
+                  <Bot size={22} />
                 </div>
                 <div>
-                  <h3 className="text-white font-serif font-semibold text-lg leading-tight">Gurujii Assistant</h3>
+                  <h3 className="text-white font-serif font-semibold text-lg leading-tight">Gurujii Bot</h3>
                   <p className="text-white/80 text-xs flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span> Online
+                    <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
                   </p>
                 </div>
               </div>
@@ -145,8 +162,17 @@ const Chatbot = () => {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div 
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm ${
+                  {/* Bot Avatar for messages */}
+                  {msg.type === 'bot' && (
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex flex-shrink-0 items-center justify-center text-primary mr-2 mt-1">
+                      <Bot size={16} />
+                    </div>
+                  )}
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9, x: msg.type === 'user' ? 20 : -20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
                       msg.type === 'user' 
                         ? 'bg-primary text-white rounded-tr-sm' 
                         : 'bg-white border border-gray-100 shadow-sm text-gray-700 rounded-tl-sm'
@@ -157,31 +183,50 @@ const Chatbot = () => {
                     {/* Predefined Options rendered only on the first greeting */}
                     {msg.isOptions && (
                       <div className="mt-4 flex flex-col gap-2">
-                        {predefinedOptions.map((opt) => (
-                          <button
+                        {predefinedOptions.map((opt, i) => (
+                          <motion.button
                             key={opt.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 + 0.5 }}
                             onClick={() => handleOptionClick(opt)}
                             className="text-left text-xs text-primary border border-primary/20 hover:bg-primary/5 rounded-lg px-3 py-2 transition-colors font-medium"
                           >
                             {opt.text}
-                          </button>
+                          </motion.button>
                         ))}
                       </div>
                     )}
 
                     {/* WhatsApp Fallback Button */}
                     {msg.isWhatsappFallback && (
-                      <button
+                      <motion.button
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
                         onClick={() => openWhatsApp(msg.userQuery)}
                         className="mt-3 w-full flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#20bd5a] px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
                       >
                         <FaWhatsapp size={16} />
                         Chat on WhatsApp
-                      </button>
+                      </motion.button>
                     )}
-                  </div>
+                  </motion.div>
                 </div>
               ))}
+              
+              {/* Typing Indicator */}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex flex-shrink-0 items-center justify-center text-primary mr-2 mt-1">
+                    <Bot size={16} />
+                  </div>
+                  <div className="bg-white border border-gray-100 shadow-sm rounded-2xl rounded-tl-sm">
+                    <TypingIndicator />
+                  </div>
+                </div>
+              )}
+              
               <div ref={messagesEndRef} />
             </div>
 
@@ -194,13 +239,15 @@ const Chatbot = () => {
                 placeholder="Type your question..."
                 className="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 text-gray-700"
               />
-              <button 
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 type="submit"
                 disabled={!inputValue.trim()}
                 className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors shrink-0 shadow-sm"
               >
                 <Send size={16} className="-ml-0.5" />
-              </button>
+              </motion.button>
             </form>
           </motion.div>
         )}
