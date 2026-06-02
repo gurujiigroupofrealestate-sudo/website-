@@ -2,12 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 import AnimatedButton from '../components/AnimatedButton';
-import SEO from '../components/SEO';
 
 const About = () => {
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
-      <SEO title="About Us" />
       {/* Page Header */}
       <div className="container mx-auto px-6 mb-20 text-center">
         <motion.h1 
