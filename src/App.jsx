@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import AnimatedCursor from './components/AnimatedCursor'
 import PageLoader from './components/PageLoader'
+import Chatbot from './components/Chatbot'
 
 import Home from './pages/Home'
 import About from './pages/About'
@@ -69,6 +70,7 @@ function App() {
         {/* Render content only when not initially loading to prevent layout shifts or premature animations */}
         <AnimatedCursor />
         <Navbar />
+        <Chatbot />
         
         <AnimatePresence mode="wait">
           <Routes>
