@@ -6,48 +6,46 @@ This document outlines the complete technology stack used to build, animate, and
 
 ## 🎨 Frontend Architecture (Client-Side)
 
-The website is built as a highly optimized **Single Page Application (SPA)**, meaning it never reloads the browser when users navigate between pages, resulting in a lightning-fast experience.
-
-- **Core Framework:** React.js (v18)
-- **Build Tool / Bundler:** Vite (Provides instant server start and hyper-fast Hot Module Replacement)
-- **Routing:** React Router DOM (Handles seamless client-side page transitions without refreshing)
-- **Styling & CSS:** 
-  - Tailwind CSS (Utility-first framework used for the custom "Liquid Glass" design system)
-  - Custom CSS Modules (For specific custom cursors and scrollbar modifications)
-- **Animations & Interactivity:**
-  - Framer Motion (Used for complex page transitions, floating chatbot animations, and staggered list reveals)
-  - GSAP (GreenSock Animation Platform) + ScrollTrigger (Used for high-performance parallax scrolling effects in the Hero section)
-  - Lenis (Provides buttery-smooth scrolling physics across the entire application)
-- **Icons:** Lucide React & React Icons (Lightweight SVG icon libraries)
-- **Carousels/Sliders:** Swiper.js (Used for the auto-playing, fading hero image galleries)
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Core Framework** | React.js (v18) | The foundational JavaScript library for building the Single Page Application (SPA). |
+| **Build Tool** | Vite | Provides hyper-fast Hot Module Replacement (HMR) and optimized production builds. |
+| **Routing** | React Router DOM | Handles seamless client-side page transitions without browser reloads. |
+| **Styling** | Tailwind CSS | Utility-first CSS framework used to build the custom "Liquid Glass" design system. |
+| **Custom CSS** | CSS Modules | Used for defining global variables, custom SVG cursors, and base styles. |
+| **Animations** | Framer Motion | Powers the complex page transitions, floating chatbot, and staggered reveals. |
+| **Parallax Effects** | GSAP + ScrollTrigger | High-performance scrolling effects used specifically in the Hero sections. |
+| **Smooth Scrolling** | Lenis | Overrides native browser scrolling to provide buttery-smooth physics globally. |
+| **Iconography** | Lucide React | Lightweight, highly customizable SVG icons used across the UI. |
+| **Sliders** | Swiper.js | Manages the auto-playing, cross-fading hero image galleries. |
 
 ---
 
 ## ⚙️ Backend & Infrastructure (Server-Side)
 
-This architecture is entirely **Serverless**. It does not rely on a traditional monolithic backend (like Node.js or Python) which eliminates server maintenance costs and significantly increases global load speeds.
-
-- **Hosting & Deployment:** Vercel 
-  - Serves the static React build via their ultra-fast Global Edge CDN.
-  - Automatically handles SSL/TLS certificates (HTTPS).
-  - Uses `vercel.json` rewrite rules to perfectly manage React Router client-side paths.
-- **Form Handling / Database:** WhatsApp API Integration
-  - Instead of a traditional database, the site uses an intelligent Client-to-WhatsApp routing system.
-  - The custom floating Chatbot and Contact Forms dynamically encode user data into a URI string and push it directly to the official Gurujii WhatsApp business number.
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Architecture** | Serverless | No traditional monolithic backend (like Node.js/Python), ensuring maximum global speed. |
+| **Hosting & CDN** | Vercel Edge Network | Serves the static React build globally with ultra-low latency and auto-SSL. |
+| **Database/Forms** | WhatsApp API | Completely replaces traditional databases by intelligently routing forms directly to WhatsApp. |
+| **Route Rules** | `vercel.json` | Configures Vercel to route all sub-directories back to `index.html` for SPA routing. |
 
 ---
 
 ## 🔍 SEO & Meta Architecture
 
-- **Meta Configuration:** Hardcoded HTML5 tags injected into `index.html`.
-- **Search Engine Optimization:** 100+ highly targeted Madurai real estate keywords embedded in the code.
-- **Social Graph Optimization:** Custom Open Graph (`og:`) meta tags configured to generate beautiful visual preview cards when the link is shared on WhatsApp, Facebook, or LinkedIn.
-- **Canonical Linking:** Establishes `www.gurujiigroupofrealestates.com` as the master domain to prevent Google penalty for duplicate content.
+| Category | Implementation | Description |
+| :--- | :--- | :--- |
+| **Keywords** | HTML5 Meta Tags | Over 100+ hyper-targeted Madurai real estate keywords embedded directly into the DOM. |
+| **Social Graph** | Open Graph (`og:`) | Generates rich visual preview cards (with logo and descriptions) for Facebook/WhatsApp sharing. |
+| **Canonical Links** | `rel="canonical"` | Establishes `www.gurujiigroupofrealestates.com` as the master domain to prevent Google penalties. |
 
 ---
 
 ## 🧠 Version Control & CI/CD
 
-- **Version Control System:** Git
-- **Code Repository:** GitHub
-- **Continuous Deployment (CI/CD):** Integrated with Vercel. Pushing code to the `main` branch on GitHub automatically triggers a secure, optimized production build on Vercel servers.
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Version Control** | Git | Tracks all code changes and history locally. |
+| **Repository** | GitHub | Secure, remote cloud backup of the entire application source code. |
+| **CI/CD Pipeline** | Vercel Automations | Pushing to the `main` GitHub branch automatically triggers a new live deployment on Vercel. |
