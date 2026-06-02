@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, MessageSquare } from 'lucide-react';
 import AnimatedButton from '../components/AnimatedButton';
+import SEO from '../components/SEO';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +39,7 @@ ${formData.message}`;
 
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20 relative">
+      <SEO title="Contact Us" />
       <div className="container mx-auto px-6">
         
         {/* Header */}

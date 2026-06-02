@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard';
+import SEO from '../components/SEO';
 
 const Projects = () => {
   const [filter, setFilter] = useState('All');
@@ -79,6 +80,7 @@ const Projects = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
+      <SEO title="Our Projects" />
       <div className="container mx-auto px-6">
         
         {/* Header */}

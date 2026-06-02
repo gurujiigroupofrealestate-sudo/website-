@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 
 const Terms = () => {
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
+      <SEO title="Terms & Conditions" />
       <div className="container mx-auto px-6 max-w-4xl">
         
         {/* Header */}

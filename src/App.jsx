@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
@@ -9,13 +9,13 @@ import AnimatedCursor from './components/AnimatedCursor'
 import PageLoader from './components/PageLoader'
 import Chatbot from './components/Chatbot'
 
-import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
-import Services from './pages/Services'
-import Contact from './pages/Contact'
-import FAQ from './pages/FAQ'
-import Terms from './pages/Terms'
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Projects = lazy(() => import('./pages/Projects'))
+const Services = lazy(() => import('./pages/Services'))
+const Contact = lazy(() => import('./pages/Contact'))
+const FAQ = lazy(() => import('./pages/FAQ'))
+const Terms = lazy(() => import('./pages/Terms'))
 
 // ScrollToTop component to handle route changes
 const ScrollToTop = () => {
@@ -73,15 +73,17 @@ function App() {
         <Chatbot />
         
         <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/terms" element={<Terms />} />
-          </Routes>
+          <Suspense fallback={<div className="h-screen bg-black-matte flex items-center justify-center"><div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/terms" element={<Terms />} />
+            </Routes>
+          </Suspense>
         </AnimatePresence>
         
         <Footer />

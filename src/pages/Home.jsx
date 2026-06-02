@@ -11,6 +11,8 @@ import { Building2, Users, Trophy, Key, ArrowRight } from 'lucide-react';
 
 import AnimatedButton from '../components/AnimatedButton';
 import ProjectCard from '../components/ProjectCard';
+import AnimatedCounter from '../components/AnimatedCounter';
+import SEO from '../components/SEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,14 +82,15 @@ const Home = () => {
   ];
 
   const stats = [
-    { icon: <Building2 size={24} />, value: '150+', label: 'Premium Projects' },
-    { icon: <Users size={24} />, value: '10k+', label: 'Happy Families' },
-    { icon: <Trophy size={24} />, value: '25+', label: 'Years Experience' },
-    { icon: <Key size={24} />, value: '500+', label: 'Properties Sold' },
+    { icon: <Building2 size={24} />, value: 150, suffix: '+', label: 'Premium Projects' },
+    { icon: <Users size={24} />, value: 10, suffix: 'k+', label: 'Happy Families' },
+    { icon: <Trophy size={24} />, value: 25, suffix: '+', label: 'Years Experience' },
+    { icon: <Key size={24} />, value: 500, suffix: '+', label: 'Properties Sold' },
   ];
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <SEO title="Home" />
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0 z-0">
@@ -165,7 +168,9 @@ const Home = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
                   {stat.icon}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-serif text-black-matte mb-2">{stat.value}</h3>
+                <h3 className="text-3xl md:text-4xl font-serif text-black-matte mb-2">
+                  <AnimatedCounter to={stat.value} suffix={stat.suffix} />
+                </h3>
                 <p className="text-gray-600 text-sm uppercase tracking-widest">{stat.label}</p>
               </div>
             ))}
@@ -175,7 +180,16 @@ const Home = () => {
 
       {/* About Highlights */}
       <section className="py-32 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+        <motion.div 
+          animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/20 blur-[100px] rounded-full pointer-events-none" 
+        />
+        <motion.div 
+          animate={{ y: [0, 30, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-[-100px] w-[400px] h-[400px] bg-secondary/20 blur-[100px] rounded-full pointer-events-none" 
+        />
         
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">

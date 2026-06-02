@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -30,6 +31,7 @@ const FAQ = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
+      <SEO title="FAQ" />
       <div className="container mx-auto px-6 max-w-4xl">
         
         {/* Header */}

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Briefcase, Key, Building, Wrench, ShieldCheck, FileText } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
 import AnimatedButton from '../components/AnimatedButton';
+import SEO from '../components/SEO';
 
 const Services = () => {
   const services = [
@@ -41,6 +42,7 @@ const Services = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20 relative overflow-hidden">
+      <SEO title="Services" />
       {/* Background Ornaments */}
       <div className="absolute top-40 left-[-10%] w-[500px] h-[500px] bg-secondary/10 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-40 right-[-10%] w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
