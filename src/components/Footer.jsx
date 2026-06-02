@@ -101,9 +101,9 @@ const Footer = () => {
           <p className="text-gray-500 text-xs text-center md:text-left">
             &copy; {new Date().getFullYear()} Gurujii Group of Real Estates. All rights reserved.
           </p>
-          <div className="flex gap-6 text-gray-500 text-xs">
-            <Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-primary transition-colors">Terms of Service</Link>
+          <div className="flex gap-6 text-gray-500 text-xs font-medium">
+            <Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link>
+            <Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link>
           </div>
         </motion.div>
       </div>

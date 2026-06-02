@@ -13,6 +13,8 @@ import About from './pages/About'
 import Projects from './pages/Projects'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import FAQ from './pages/FAQ'
+import Terms from './pages/Terms'
 
 // ScrollToTop component to handle route changes
 const ScrollToTop = () => {
@@ -75,6 +77,8 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/terms" element={<Terms />} />
           </Routes>
         </AnimatePresence>
         
