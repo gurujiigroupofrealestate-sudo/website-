@@ -226,8 +226,8 @@ const Home = () => {
 
       {/* Featured Projects Slider */}
       <section className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div>
+        <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
+          <div className="text-center md:text-left w-full">
             <h4 className="text-primary tracking-widest uppercase text-sm font-medium mb-4">Exclusive Parcels</h4>
             <h2 className="text-4xl md:text-5xl font-serif text-black-matte">Featured Lands</h2>
           </div>
