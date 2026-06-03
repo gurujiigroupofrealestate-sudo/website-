@@ -38,12 +38,22 @@ const ProjectCard = ({ project, index }) => {
             <p className="text-gray-600 text-sm">{project.location}</p>
           </div>
           
-          {/* Animated Arrow */}
-          <Link to="/contact" className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center overflow-hidden relative cursor-pointer">
-            <div className="absolute inset-0 bg-primary transform translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500" />
-            <ArrowRight className="text-black-matte group-hover:text-white relative z-10 -translate-x-6 group-hover:translate-x-0 transition-transform duration-500" />
-            <ArrowRight className="text-black-matte group-hover:text-white absolute z-10 group-hover:translate-x-6 transition-transform duration-500" />
-          </Link>
+          {/* Actions */}
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/contact" 
+              state={{ siteName: project.title }}
+              className="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium transition-all duration-500 hover:scale-105 whitespace-nowrap shadow-md opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transform translate-x-4 group-hover:translate-x-0"
+            >
+              Enquire Now
+            </Link>
+            {/* Animated Arrow */}
+            <Link to="/contact" state={{ siteName: project.title }} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center overflow-hidden relative cursor-pointer shrink-0 bg-white/40 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-primary transform translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500" />
+              <ArrowRight className="text-black-matte group-hover:text-white relative z-10 -translate-x-6 group-hover:translate-x-0 transition-transform duration-500" />
+              <ArrowRight className="text-black-matte group-hover:text-white absolute z-10 group-hover:translate-x-6 transition-transform duration-500" />
+            </Link>
+          </div>
         </div>
 
         {/* Details that appear on hover */}

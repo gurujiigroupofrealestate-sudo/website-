@@ -7,6 +7,7 @@ import AnimatedButton from './AnimatedButton';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSlotModal, setShowSlotModal] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,6 +25,22 @@ const Navbar = () => {
     { name: 'Services', path: '/services' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  const sites = [
+    'Vinayaga Nagar',
+    'Vibul City',
+    'Arunachala Enclave',
+    'Fortune City',
+    'Perumal Nagar',
+    'Kamuthi - Kaana Vilakku',
+    'Achampatti Farm Land'
+  ];
+
+  const handleSiteSelect = (site) => {
+    const message = `Hello, I would like to book a slot and get more details about your property: *${site}*.`;
+    window.open(`https://wa.me/918610143937?text=${encodeURIComponent(message)}`, '_blank');
+    setShowSlotModal(false);
+  };
 
   return (
     <>
@@ -65,12 +82,50 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            
-            <Link to="/contact">
-              <AnimatedButton variant="primary" className="py-2.5 px-6 text-sm">
-                Inquire Now
-              </AnimatedButton>
-            </Link>
+            <div className="relative" onMouseLeave={() => setShowSlotModal(false)}>
+              <div className="relative inline-block">
+                {/* Notification Dot */}
+                <span className="absolute -top-1.5 -left-1.5 flex h-4 w-4 z-10 pointer-events-none">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]"></span>
+                </span>
+                
+                <AnimatedButton 
+                  variant="primary" 
+                  className="py-2.5 px-6 text-sm relative z-0"
+                  onClick={() => setShowSlotModal(!showSlotModal)}
+                >
+                  Book Your Slot
+                </AnimatedButton>
+              </div>
+
+              <AnimatePresence>
+                {showSlotModal && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 mt-3 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+                  >
+                    <div className="p-3 bg-gray-50/80 border-b border-gray-100 backdrop-blur-sm">
+                      <p className="text-xs font-semibold text-primary uppercase tracking-wider text-center">Select Preferred Site</p>
+                    </div>
+                    <div className="max-h-60 overflow-y-auto">
+                      {sites.map(site => (
+                        <button
+                          key={site}
+                          onClick={() => handleSiteSelect(site)}
+                          className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors border-b border-gray-50 last:border-0"
+                        >
+                          {site}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Mobile Menu Toggle */}

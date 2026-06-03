@@ -8,7 +8,7 @@ const About = () => {
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
       {/* Page Header */}
       <div className="container mx-auto px-6 mb-20 text-center">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -16,7 +16,7 @@ const About = () => {
         >
           Our <span className="text-gradient">Legacy</span>
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -29,7 +29,7 @@ const About = () => {
       {/* Vision & Mission */}
       <div className="container mx-auto px-6 mb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -42,7 +42,7 @@ const About = () => {
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -66,45 +66,46 @@ const About = () => {
             <h2 className="text-4xl font-serif text-black-matte mb-4">Our Leadership</h2>
             <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
           </div>
-          
+
           <div className="flex flex-col gap-16">
             {[
-              { 
-                name: 'Moorthy S K', 
-                role: 'Managing Director', 
-                image: '/moorthy.png',
+              {
+                name: 'S. K. Moorthy MBA., DME.,',
+                highlight: 'Ex Army',
+                role: 'Managing Director',
+                image: '/moorthy.jpg',
                 desc: 'Leading the vision of Gurujii Group, Moorthy brings decades of unmatched expertise in land acquisition, strategic growth, and market dynamics.'
               },
-              { 
-                name: 'Subha M', 
-                role: 'Director', 
+              {
+                name: 'M. Subha M. Sc',
+                role: 'Director',
                 image: '/subha.jpg',
                 desc: 'With a keen eye for operational excellence and client satisfaction, Subha ensures every transaction is transparent, smooth, and highly beneficial for our investors.'
               },
-              { 
-                name: 'Sathya Jeyanthi J', 
-                role: 'Director', 
-                image: '/sathya.png',
+              {
+                name: 'J. Sathya Jeyanthi B. Sc',
+                role: 'Director',
+                image: '/sathya.jpg',
                 desc: 'Sathya spearheads the legal and compliance divisions, ensuring that every land parcel we curate has pristine titles and offers absolute peace of mind.'
               }
             ].map((leader, i) => (
               <div key={i} className="flex flex-col md:flex-row items-center gap-12 bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-sm">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   className={`md:w-1/3 ${i % 2 !== 0 ? 'md:order-2' : ''}`}
                 >
                   <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel-light p-2">
-                    <img 
-                      src={leader.image} 
-                      alt={leader.name} 
+                    <img
+                      src={leader.image}
+                      alt={leader.name}
                       className="w-full h-full object-cover rounded-xl transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   initial={{ opacity: 0, x: i % 2 !== 0 ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -114,8 +115,15 @@ const About = () => {
                     "{leader.desc}"
                   </blockquote>
                   <div>
-                    <h4 className="text-black-matte text-lg font-medium">{leader.name}</h4>
-                    <p className="text-primary text-sm uppercase tracking-widest font-medium">{leader.role}</p>
+                    <h4 className="text-black-matte text-lg font-medium flex items-center flex-wrap gap-2">
+                      {leader.name}
+                      {leader.highlight && (
+                        <span className="text-red-500 font-bold text-sm tracking-widest uppercase animate-pulse drop-shadow-[0_0_8px_rgba(239,68,68,0.8)] bg-red-50 px-2 py-0.5 rounded border border-red-200">
+                          {leader.highlight}
+                        </span>
+                      )}
+                    </h4>
+                    <p className="text-primary text-sm uppercase tracking-widest font-medium mt-1">{leader.role}</p>
                   </div>
                 </motion.div>
               </div>
@@ -140,7 +148,7 @@ const About = () => {
             { title: "Hassle-Free Registration", desc: "We handle all the legal paperwork and registration processes, making your land acquisition seamless." },
             { title: "Bespoke Portfolios", desc: "We curate personalized land investment portfolios tailored to your specific financial goals and risk appetite." }
           ].map((item, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

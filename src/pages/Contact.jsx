@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, MessageSquare } from 'lucide-react';
 import AnimatedButton from '../components/AnimatedButton';
+import { useLocation } from 'react-router-dom';
 
 const Contact = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    subject: location.state?.siteName ? `Inquiry for ${location.state.siteName}` : '',
     message: ''
   });
 
