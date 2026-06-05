@@ -76,7 +76,7 @@ const Home = () => {
       location: 'Sedapatti Road',
       price: '₹26 Lakhs / Acre',
       status: 'Highly Fertile',
-      category: 'Agricultural',
+      category: 'Farming',
       image: '/farmland.png',
     }
   ];
@@ -226,15 +226,51 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section className="pt-20 pb-10 bg-[#f5f5f7] relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ y: -5 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="max-w-4xl mx-auto text-center bg-white/60 backdrop-blur-[40px] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden group"
+          >
+            {/* iOS style subtle glare reflection */}
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/80 to-transparent opacity-50 pointer-events-none transition-opacity duration-700 group-hover:opacity-100" />
+            
+            <motion.h3 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              className="text-3xl md:text-5xl font-serif text-black-matte mb-6 leading-tight relative z-10 tracking-tight"
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-bold">25 Years</span> of Vast Experience
+            </motion.h3>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+              className="text-lg md:text-2xl text-gray-600 font-light leading-relaxed relative z-10"
+            >
+              We have extensive experience in real estate and allied businesses, dedicated to helping Indians across regions acquire premium lands at <span className="text-black-matte font-medium">affordable prices</span>.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Featured Projects Slider */}
-      <section className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
-          <div className="text-center md:text-left w-full">
-            <h2 className="text-4xl md:text-5xl font-serif text-black-matte">Featured Lands</h2>
+      <section className="pt-10 pb-24 bg-white relative">
+        <div className="container mx-auto px-6 mb-12 flex flex-col items-center justify-center gap-6 relative">
+          <h2 className="text-4xl md:text-5xl font-serif text-black-matte text-center w-full">Featured Lands</h2>
+          <div className="md:absolute md:right-6 md:top-1/2 md:-translate-y-1/2 hidden md:block">
+            <AnimatedButton variant="glass">
+              View All Properties
+            </AnimatedButton>
           </div>
-          <AnimatedButton variant="glass" className="hidden md:block">
-            View All Properties
-          </AnimatedButton>
         </div>
 
         <div className="w-full pl-6 md:pl-0 md:container md:mx-auto">

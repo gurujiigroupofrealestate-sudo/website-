@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 const Projects = () => {
   const [filter, setFilter] = useState('All');
 
-  const categories = ['All', 'Residential Plots', 'Commercial Land', 'Agricultural'];
+  const categories = ['All', 'Residential Plots', 'Commercial Land', 'Farming'];
 
   const allProjects = [
     {
@@ -68,7 +68,7 @@ const Projects = () => {
       location: 'Sedapatti Road',
       price: '₹26 Lakhs / Acre',
       status: 'Highly Fertile',
-      category: 'Agricultural',
+      category: 'Farming',
       image: '/farmland.png',
     }
   ];
