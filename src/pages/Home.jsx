@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,6 +20,7 @@ const Home = () => {
   const textRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // GSAP ScrollTrigger for parallax and fade effects
@@ -129,10 +131,10 @@ const Home = () => {
             transition={{ duration: 1, delay: 1.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            <AnimatedButton variant="primary">
+            <AnimatedButton variant="primary" onClick={() => navigate('/projects')}>
               View Projects
             </AnimatedButton>
-            <AnimatedButton variant="outline">
+            <AnimatedButton variant="outline" onClick={() => navigate('/contact')}>
               Contact Us
             </AnimatedButton>
           </motion.div>
@@ -228,7 +230,6 @@ const Home = () => {
       <section className="py-24 bg-white relative">
         <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
           <div className="text-center md:text-left w-full">
-            <h4 className="text-primary tracking-widest uppercase text-sm font-medium mb-4">Exclusive Parcels</h4>
             <h2 className="text-4xl md:text-5xl font-serif text-black-matte">Featured Lands</h2>
           </div>
           <AnimatedButton variant="glass" className="hidden md:block">
