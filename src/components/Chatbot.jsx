@@ -81,24 +81,133 @@ const Chatbot = () => {
     setInputValue('');
     setIsTyping(true);
 
-    // WhatsApp Fallback for custom text with robotic thinking delay
+    const userTextLC = userText.toLowerCase();
+    
+    // Knowledge base for keyword matching
+    const knowledgeBase = [
+      {
+        keywords: ['property', 'properties', 'plot', 'plots', 'villa', 'villas', 'apartment', 'apartments', 'commercial', 'farmland', 'agricultural', 'shop', 'shops', 'office', 'warehouse', 'house', 'houses'],
+        answer: 'We primarily offer premium DTCP approved residential plots, customized villas, and select commercial properties in prime locations around Madurai.'
+      },
+      {
+        keywords: ['dtcp', 'rera', 'approval', 'approved', 'legal', 'verified', 'parent', 'document', 'documents', 'patta', 'ec', 'encumbrance', 'certificate', 'lawyer', 'dispute', 'clear'],
+        answer: 'Yes! All our properties are strictly DTCP approved with 100% clear parent documents, individual patta, and EC. You can easily verify all legal documents with your lawyer.'
+      },
+      {
+        keywords: ['buy', 'online', 'book', 'booking', 'reserve', 'choose', 'prefer', 'immediate', 'purchase'],
+        answer: 'You can book your preferred property by paying a nominal token advance. The entire process is swift, and our team also supports online/remote buying for out-of-town or NRI clients!'
+      },
+      {
+        keywords: ['first-time', 'first', 'nri', 'nris', 'abroad'],
+        answer: 'Absolutely! We provide complete end-to-end assistance for first-time buyers and NRIs, guiding you through documentation, loans, and registration.'
+      },
+      {
+        keywords: ['visit', 'schedule', 'tour', 'tours', 'virtual', 'see', 'look', 'arrange'],
+        answer: 'We offer complimentary, guided site visits! If you are out of town, we also provide virtual property tours and video calls to show you the layout.'
+      },
+      {
+        keywords: ['loan', 'loans', 'bank', 'banks', 'emi', 'finance', 'assist'],
+        answer: 'Yes, we provide full loan assistance! Since our properties are DTCP approved, major banks easily provide up to 70-80% funding with flexible EMI options.'
+      },
+      {
+        keywords: ['hide', 'hidden', 'charge', 'charges', 'gst', 'rate', 'evlo', 'budget', 'price', 'cost', 'amount'],
+        answer: 'We maintain 100% transparency with zero hidden charges. For exact plot rates matching your budget, please tap the WhatsApp button below to connect with our experts!'
+      },
+      {
+        keywords: ['register', 'registration', 'deed'],
+        answer: 'Yes, our dedicated administrative team takes care of the entire property registration process smoothly without any hassle for you.'
+      },
+      {
+        keywords: ['location', 'locations', 'serve', 'madurai', 'area', 'map', 'maps', 'best', 'suitable'],
+        answer: 'We have premium projects across fast-growing areas in Madurai like Thirumangalam, Kappalur, and Tirunagar. We gladly provide exact Google Maps locations for all sites.'
+      },
+      {
+        keywords: ['school', 'schools', 'hospital', 'hospitals', 'highway', 'highways', 'transportation', 'bus', 'train', 'railway', 'water', 'electricity', 'eb', 'road', 'fence', 'fenced', 'lighting', 'light', 'amenities'],
+        answer: 'Our layouts come with excellent infrastructure including blacktop roads, street lighting, EB connection, and secure fencing. They are strategically located near highways, schools, hospitals, and bus stops.'
+      },
+      {
+        keywords: ['corner', 'gated', 'community', 'size', 'sizes', 'build', 'construct', 'resell', 'resale'],
+        answer: 'We offer various plot sizes, including premium corner plots and gated communities. You can build immediately or hold it as an investment with great resale value!'
+      },
+      {
+        keywords: ['ready', 'move', 'park', 'parking', 'furnish', 'furnished', 'security', 'secure', 'customize', 'custom', 'interior', 'interiors'],
+        answer: 'We offer both ready-to-move and customizable villas within secure, gated communities. They come with dedicated parking, and we allow you to customize interiors during construction!'
+      },
+      {
+        keywords: ['rent', 'rental', 'business', 'income'],
+        answer: 'While our primary focus is on property sales, buying our commercial plots or villas is an excellent way to generate solid rental income for your business.'
+      },
+      {
+        keywords: ['investment', 'invest', 'advice', 'advise', 'appreciate', 'appreciation', 'dream', 'help'],
+        answer: 'Real estate in Madurai is appreciating rapidly! Our experts provide tailored investment advice to help you find your dream property with the best ROI.'
+      },
+      {
+        keywords: ['contact', 'office', 'time', 'timings', 'whatsapp', 'respond', 'quick', 'quickly', 'call', 'callback', 'language', 'languages', 'tamil', 'english', 'hindi', 'speak', 'appointment', 'consult', 'consultation', 'details', 'number', 'reach'],
+        answer: 'Our team is available to assist you in Tamil, English, and Hindi. You can chat with us on WhatsApp, request a callback, or schedule a consultation during office hours.'
+      },
+      {
+        keywords: ['hi', 'hello', 'hey', 'greetings', 'morning', 'afternoon', 'evening'],
+        answer: 'Hello there! How can I help you with your real estate journey today?'
+      },
+      {
+        keywords: ['thanks', 'thank you', 'okay', 'ok', 'great', 'awesome', 'good'],
+        answer: 'You are very welcome! Let me know if you have any other questions.'
+      }
+    ];
+
+    let foundMatch = null;
+    let maxMatchCount = 0;
+
+    knowledgeBase.forEach(entry => {
+      let matchCount = 0;
+      entry.keywords.forEach(kw => {
+        // Regex word boundary matching to prevent partial matches like 'hi' in 'this'
+        const regex = new RegExp(`\\b${kw}\\b`, 'i');
+        if (regex.test(userTextLC)) {
+          matchCount++;
+        }
+      });
+      if (matchCount > maxMatchCount) {
+        maxMatchCount = matchCount;
+        foundMatch = entry.answer;
+      }
+    });
+
+    // Fallback logic
     setTimeout(() => {
       setIsTyping(false);
-      setMessages((prev) => [
-        ...prev, 
-        { 
-          type: 'bot', 
-          content: 'For specific inquiries, please chat with our real estate experts directly!',
-          isWhatsappFallback: true,
-          userQuery: userText
-        }
-      ]);
+      
+      if (foundMatch) {
+        setMessages((prev) => [
+          ...prev, 
+          { 
+            type: 'bot', 
+            content: foundMatch,
+            isWhatsappFallback: false
+          }
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev, 
+          { 
+            type: 'bot', 
+            content: "I'm not quite sure about that. For specific inquiries, please chat with our real estate experts directly!",
+            isWhatsappFallback: true
+          }
+        ]);
+      }
     }, 1500);
   };
 
-  const openWhatsApp = (customText = '') => {
-    const defaultMsg = customText ? `Hello Gurujii Group, ${customText}` : 'Hello Gurujii Group, I have an inquiry from your website.';
-    const encodedMsg = encodeURIComponent(defaultMsg);
+  const openWhatsApp = () => {
+    let conversationText = "Hello Gurujii Group, I have an inquiry from your website.\n\n*Chat History:*\n";
+    messages.forEach((msg) => {
+      if (msg.isWhatsappFallback) return;
+      const sender = msg.type === 'bot' ? 'Gurujii Bot' : 'User';
+      conversationText += `*${sender}:* ${msg.content}\n`;
+    });
+    
+    const encodedMsg = encodeURIComponent(conversationText.trim());
     window.open(`https://wa.me/918610143937?text=${encodedMsg}`, '_blank');
   };
 
@@ -204,7 +313,7 @@ const Chatbot = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 }}
-                        onClick={() => openWhatsApp(msg.userQuery)}
+                        onClick={() => openWhatsApp()}
                         className="mt-3 w-full flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#20bd5a] px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
                       >
                         <FaWhatsapp size={16} />
