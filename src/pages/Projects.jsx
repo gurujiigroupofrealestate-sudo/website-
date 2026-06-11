@@ -37,9 +37,9 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: 'Fortune City',
-      location: 'Thanakkankulam',
-      price: '₹6.5 Lakhs / Cent',
+      title: 'Nila Nagar',
+      location: 'karuppayurani,madurai',
+      price: '₹5.80 Lakhs / Cent',
       status: 'Road Cost Free (DTCP)',
       category: 'Residential Plots',
       image: '/fortune.png',
@@ -70,20 +70,38 @@ const Projects = () => {
       status: 'Highly Fertile',
       category: 'Farming',
       image: '/farmland.png',
+    },
+    {
+      id: 8,
+      title: 'Elil Nagar',
+      location: 'Alagar Kovil',
+      price: '₹5.9 Lakhs / Cent',
+      status: 'Available',
+      category: 'Residential Plots',
+      image: '/elil_nagar.png',
+    },
+    {
+      id: 9,
+      title: 'Farm Land',
+      location: 'Alagar Kovil',
+      price: '₹25 Lakhs / Acre',  
+      status: 'Available',
+      category: 'Farming',
+      image: '/alagar_farmland.png',
     }
   ];
 
-  const filteredProjects = filter === 'All' 
-    ? allProjects 
+  const filteredProjects = filter === 'All'
+    ? allProjects
     : allProjects.filter(project => project.category === filter);
 
   return (
     <div className="bg-gray-50 min-h-screen pt-32 pb-20">
       <div className="container mx-auto px-6">
-        
+
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -91,7 +109,7 @@ const Projects = () => {
           >
             Exclusive <span className="text-gradient">Portfolio</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -102,7 +120,7 @@ const Projects = () => {
         </div>
 
         {/* Filter */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -112,11 +130,10 @@ const Projects = () => {
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
-                filter === cat 
-                  ? 'bg-primary text-white' 
+              className={`px-6 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${filter === cat
+                  ? 'bg-primary text-white'
                   : 'glass-panel text-black-matte hover:bg-gray-200'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -124,7 +141,7 @@ const Projects = () => {
         </motion.div>
 
         {/* Projects Grid */}
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
